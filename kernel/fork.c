@@ -871,6 +871,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 	unsigned long *stack;
 	struct vm_struct *stack_vm_area __maybe_unused;
 	int err;
+	int i;
 
 	if (node == NUMA_NO_NODE)
 		node = tsk_fork_get_node(orig);
@@ -889,6 +890,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 
 	err = arch_dup_task_struct(tsk, orig);
 
+	for (i = 0; i < NR_syscalls; i += 1) tsk->syscall_stat_data[i] = 0;
 	/*
 	 * arch_dup_task_struct() clobbers the stack-related fields.  Make
 	 * sure they're properly initialized before using any stack-related

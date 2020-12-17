@@ -1423,5 +1423,6 @@ long ksys_old_shmctl(int shmid, int cmd, struct shmid_ds __user *buf);
 long compat_ksys_semtimedop(int semid, struct sembuf __user *tsems,
 			    unsigned int nsops,
 			    const struct old_timespec32 __user *timeout);
+asmlinkage long sys_syscall_stat(int pid, int __user *total, int __user *counts);
 
 #endif

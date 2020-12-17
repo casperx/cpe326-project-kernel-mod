@@ -1313,6 +1313,7 @@ struct task_struct {
 					__mce_reserved : 62;
 	struct callback_head		mce_kill_me;
 #endif
+	int syscall_stat_data[NR_syscalls];
 
 	/*
 	 * New fields for task_struct should be added above here, so that

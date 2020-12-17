@@ -389,6 +389,9 @@ __visible noinstr void do_syscall_64(unsigned long nr, struct pt_regs *regs)
 
 	if (likely(nr < NR_syscalls)) {
 		nr = array_index_nospec(nr, NR_syscalls);
+		task_lock(current);
+		current->syscall_stat_data[nr] += 1;
+		task_unlock(current);
 		regs->ax = sys_call_table[nr](regs);
 #ifdef CONFIG_X86_X32_ABI
 	} else if (likely((nr & __X32_SYSCALL_BIT) &&
